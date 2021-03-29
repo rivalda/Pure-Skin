@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProjektDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmriKategorise" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pershkrimi" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perdoruesit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Qyteti" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="Roli" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Porosite">
+          <Key>
+            <PropertyRef Name="ID_porosi" />
+          </Key>
+          <Property Name="ID_porosi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Prod" Type="int" Nullable="false" />
+          <Property Name="ID_Perdorues" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email_Perdoruesi" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Produkte">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emri" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Pershkrimi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Imazh" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cmimi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="KategoriID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Porosite_Perdoruesit">
+          <End Role="Perdoruesit" Type="Self.Perdoruesit" Multiplicity="1" />
+          <End Role="Porosite" Type="Self.Porosite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perdoruesit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Porosite">
+              <PropertyRef Name="ID_Perdorues" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Porosite_Produkte">
+          <End Role="Produkte" Type="Self.Produkte" Multiplicity="1" />
+          <End Role="Porosite" Type="Self.Porosite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkte">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Porosite">
+              <PropertyRef Name="ID_Prod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Produkte_Kategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+          <End Role="Produkte" Type="Self.Produkte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produkte">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjektDBModelStoreContainer">
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perdoruesit" EntityType="Self.Perdoruesit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Porosite" EntityType="Self.Porosite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produkte" EntityType="Self.Produkte" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Porosite_Perdoruesit" Association="Self.FK_Porosite_Perdoruesit">
+            <End Role="Perdoruesit" EntitySet="Perdoruesit" />
+            <End Role="Porosite" EntitySet="Porosite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Porosite_Produkte" Association="Self.FK_Porosite_Produkte">
+            <End Role="Produkte" EntitySet="Produkte" />
+            <End Role="Porosite" EntitySet="Porosite" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Produkte_Kategori" Association="Self.FK_Produkte_Kategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Produkte" EntitySet="Produkte" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjektDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategori">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmriKategorise" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pershkrimi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Produktes" Relationship="Self.FK_Produkte_Kategori" FromRole="Kategori" ToRole="Produkte" />
+        </EntityType>
+        <EntityType Name="Perdoruesit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Qyteti" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Roli" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Porosites" Relationship="ProjektDBModel.FK_Porosite_Perdoruesit" FromRole="Perdoruesit" ToRole="Porosite" />
+        </EntityType>
+        <EntityType Name="Porosite">
+          <Key>
+            <PropertyRef Name="ID_porosi" />
+          </Key>
+          <Property Name="ID_porosi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Prod" Type="Int32" Nullable="false" />
+          <Property Name="ID_Perdorues" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email_Perdoruesi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Perdoruesit" Relationship="ProjektDBModel.FK_Porosite_Perdoruesit" FromRole="Porosite" ToRole="Perdoruesit" />
+          <NavigationProperty Name="Produkte" Relationship="ProjektDBModel.FK_Porosite_Produkte" FromRole="Porosite" ToRole="Produkte" />
+        </EntityType>
+        <EntityType Name="Produkte">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emri" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Pershkrimi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Imazh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cmimi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KategoriID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK_Produkte_Kategori" FromRole="Produkte" ToRole="Kategori" />
+          <NavigationProperty Name="Porosites" Relationship="ProjektDBModel.FK_Porosite_Produkte" FromRole="Produkte" ToRole="Porosite" />
+        </EntityType>
+        <Association Name="FK_Produkte_Kategori">
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="1" />
+          <End Role="Produkte" Type="Self.Produkte" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Produkte">
+              <PropertyRef Name="KategoriID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjektDBEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategoris" EntityType="Self.Kategori" />
+          <EntitySet Name="Perdoruesits" EntityType="Self.Perdoruesit" />
+          <EntitySet Name="Porosites" EntityType="Self.Porosite" />
+          <EntitySet Name="Produktes" EntityType="Self.Produkte" />
+          <AssociationSet Name="FK_Produkte_Kategori" Association="Self.FK_Produkte_Kategori">
+            <End Role="Kategori" EntitySet="Kategoris" />
+            <End Role="Produkte" EntitySet="Produktes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Porosite_Perdoruesit" Association="ProjektDBModel.FK_Porosite_Perdoruesit">
+            <End Role="Perdoruesit" EntitySet="Perdoruesits" />
+            <End Role="Porosite" EntitySet="Porosites" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Porosite_Produkte" Association="ProjektDBModel.FK_Porosite_Produkte">
+            <End Role="Produkte" EntitySet="Produktes" />
+            <End Role="Porosite" EntitySet="Porosites" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Porosite_Perdoruesit">
+          <End Type="ProjektDBModel.Perdoruesit" Role="Perdoruesit" Multiplicity="1" />
+          <End Type="ProjektDBModel.Porosite" Role="Porosite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Perdoruesit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Porosite">
+              <PropertyRef Name="ID_Perdorues" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Porosite_Produkte">
+          <End Type="ProjektDBModel.Produkte" Role="Produkte" Multiplicity="1" />
+          <End Type="ProjektDBModel.Porosite" Role="Porosite" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkte">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Porosite">
+              <PropertyRef Name="ID_Prod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjektDBModelStoreContainer" CdmEntityContainer="ProjektDBEntities4">
+          <EntitySetMapping Name="Kategoris">
+            <EntityTypeMapping TypeName="ProjektDBModel.Kategori">
+              <MappingFragment StoreEntitySet="Kategori">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EmriKategorise" ColumnName="EmriKategorise" />
+                <ScalarProperty Name="Pershkrimi" ColumnName="Pershkrimi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perdoruesits">
+            <EntityTypeMapping TypeName="ProjektDBModel.Perdoruesit">
+              <MappingFragment StoreEntitySet="Perdoruesit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Qyteti" ColumnName="Qyteti" />
+                <ScalarProperty Name="Roli" ColumnName="Roli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Porosites">
+            <EntityTypeMapping TypeName="ProjektDBModel.Porosite">
+              <MappingFragment StoreEntitySet="Porosite">
+                <ScalarProperty Name="ID_porosi" ColumnName="ID_porosi" />
+                <ScalarProperty Name="ID_Prod" ColumnName="ID_Prod" />
+                <ScalarProperty Name="ID_Perdorues" ColumnName="ID_Perdorues" />
+                <ScalarProperty Name="Email_Perdoruesi" ColumnName="Email_Perdoruesi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produktes">
+            <EntityTypeMapping TypeName="ProjektDBModel.Produkte">
+              <MappingFragment StoreEntitySet="Produkte">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Emri" ColumnName="Emri" />
+                <ScalarProperty Name="Pershkrimi" ColumnName="Pershkrimi" />
+                <ScalarProperty Name="Imazh" ColumnName="Imazh" />
+                <ScalarProperty Name="Cmimi" ColumnName="Cmimi" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

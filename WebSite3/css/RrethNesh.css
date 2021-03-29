@@ -1,0 +1,76 @@
+﻿.pozicioni {
+    min-height: 100vh;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-section {
+
+    background: url('../img/bcg.jpg') no-repeat left;
+    background-size: cover;
+    background-color: #fae4e4;
+    overflow: hidden;
+    padding: 100px 10px;
+    border-radius: 30px;
+}
+
+.inner-container {
+    width: 50%;
+    float: right;
+    background-color: #fae4e4;
+    padding: 95px;
+    padding-right: 40px;
+    box-shadow: 6px 8px 6px #6b4428;
+}
+
+    .inner-container h1 {
+        margin-bottom: 30px;
+        font-size: 30px;
+        font-weight: 900;
+    }
+
+.text {
+    font-size: 17px;
+    color: black;
+    line-height: 30px;
+    text-align: justify;
+    margin-bottom: 40px;
+}
+
+@media sreen and (max-width: 1200px) {
+    .inner-container {
+        padding: 80px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .about-section {
+        background-size: 100%;
+        padding: 100px 40px;
+    }
+
+    .inner-container {
+        width: 95%;
+    }
+}
+
+.kontaktet {
+    background-color: #cfd3d4;
+    color: white;
+    padding: 20px;
+    font-size: large;
+    border-radius: 30px;
+}
+
+.map {
+    background-color: #cfd3d4;
+    color: white;
+    border-radius: 30px;
+    padding: 30px;
+    font-size: large;
+}

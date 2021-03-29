@@ -1,0 +1,33 @@
+﻿body {
+    background-color: #dcac9b;
+    background-size: cover;
+    width: 100%;
+}
+
+.logout {
+ text-align: center;
+ margin-top: 200px;
+}
+#Label1 {
+    font-size: 80px;
+    color: white;
+    margin: 70px;
+}
+#B_Logout {
+    border: none;
+    outline:none;
+    height: 40px;
+    background: #fff;
+    color: #bf7c62;
+    font-size: 25px;
+    border-radius: 20px;
+    width: 150px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+    #B_Logout:hover {
+        cursor: pointer;
+        background: white;
+        color: #000;
+    }
